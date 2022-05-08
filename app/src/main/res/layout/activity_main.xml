@@ -19,10 +19,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/toast"
+        android:id="@+id/alert_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/toast"
+        android:text="@string/alert_dialog"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="130dp"
         app:layout_constraintRight_toLeftOf="@id/count"

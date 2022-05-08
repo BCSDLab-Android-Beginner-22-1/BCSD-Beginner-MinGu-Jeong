@@ -3,23 +3,30 @@ package com.example.myapplication
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
-import java.util.Random
+import androidx.fragment.app.Fragment
 
-class SecondaryActivity:AppCompatActivity() {
+class SecondaryActivity:AppCompatActivity(),CountNumber {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_secondary)
 
-        val countNum=intent.getIntExtra("countNum",0)
-        val randNum=Random().nextInt(countNum)+1
-        val randInfo:TextView = findViewById(R.id.random_info)
-        val number:TextView=findViewById(R.id.number)
-        randInfo.text=String.format(getString(R.string.random_info),countNum)
-        number.text= randNum.toString()
-        val intent = Intent(this, MainActivity:: class.java).apply {
-            intent.putExtra("randNum", randNum)
-            setResult(RESULT_OK, intent)
+        val countMainNum=intent.getIntExtra("countNum",0)
+        val fragment: Fragment = FirstFragment()
+        val arguments=Bundle().apply {
+            putInt("countNum",countMainNum)
         }
+        fragment.arguments=arguments
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frame_view,fragment)
+            .commit()
+    }
+    override fun countNum(randNum: Int) {
+        returnNum(randNum)
+    }
+    private fun returnNum(randNum: Int) {
+        val intent = Intent(this,MainActivity::class.java).apply {
+            putExtra("randNum",randNum)
+        }
+        setResult(RESULT_OK, intent)
     }
 }
