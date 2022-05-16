@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import android.widget.TextView
 
-
-class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.NameViewHolder>() {
-    private val dataList = mutableListOf<NameData>()
+class RecyclerViewAdapter(private val dataList:ArrayList<NameData>):
+    RecyclerView.Adapter<RecyclerViewAdapter.NameViewHolder>(){
+    //private val dataList = mutableListOf<NameData>()
     lateinit var onItemClickListener:OnItemClickListener
     lateinit var onItemLongClickListener:OnItemLongClickListener
 
     inner class NameViewHolder(nameView:View):RecyclerView.ViewHolder(nameView){
-        private val name=nameView.findViewById<TextView>(R.id.item_list)
+        private val name=nameView.findViewById<TextView>(R.id.item_board)
         fun bind(nameData: NameData){
             name.text=nameData.name
         }
