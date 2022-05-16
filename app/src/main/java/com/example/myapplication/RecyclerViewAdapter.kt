@@ -1,35 +1,31 @@
 package com.example.myapplication
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.TextView
-import android.widget.EditText
+
 
 class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.NameViewHolder>() {
-    private val context:Context = TODO()
     private val dataList = mutableListOf<NameData>()
     lateinit var onItemClickListener:OnItemClickListener
     lateinit var onItemLongClickListener:OnItemLongClickListener
 
     inner class NameViewHolder(nameView:View):RecyclerView.ViewHolder(nameView){
         private val name=nameView.findViewById<TextView>(R.id.item_list)
-        fun bind(nameData: NameData,context:Context){
+        fun bind(nameData: NameData){
             name.text=nameData.name
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NameViewHolder {
-        val view=LayoutInflater.from(context).inflate(R.layout.recycler_view_item,parent,false)
+        val view=LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_item,parent,false)
         return NameViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: NameViewHolder, position: Int) {
-        holder.bind(dataList[position],context)
+        holder.bind(dataList[position])
     }
 
     override fun getItemCount(): Int {
@@ -37,9 +33,11 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.NameViewHold
     }
     fun addData(data:NameData){
         dataList.add(data)
+        notifyDataSetChanged()
     }
     fun removeData(position: Int){
         dataList.removeAt(position)
+        notifyDataSetChanged()
     }
     interface OnItemClickListener{
         fun onItemClick(position: Int)

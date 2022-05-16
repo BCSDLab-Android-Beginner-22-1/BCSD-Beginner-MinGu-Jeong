@@ -21,6 +21,9 @@ class MainActivity : AppCompatActivity() {
         val recyclerView:RecyclerView=findViewById(R.id.recycler_view)
         val addButton:ImageButton=findViewById(R.id.add_name)
         val nameEditText:EditText=findViewById(R.id.write_name)
+        val layout=LinearLayoutManager(this)
+        adapter= RecyclerViewAdapter()
+        recyclerView.layoutManager=layout
 
         addButton.setOnClickListener{
             adapter.addData(NameData(nameEditText.text.toString()))
